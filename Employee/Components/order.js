@@ -15,7 +15,7 @@ function loadOrderList() {
             }
         }
     }
-    xml.open("GET","http://localhost:27580/getCartList?uuid="+uuid);
+    xml.open("GET","http://10.0.2.15:27580/getCartList?uuid="+uuid);
     xml.send();
 }
 
@@ -58,7 +58,7 @@ function createCart(){
             console.log(this.responseText);
         }
     }
-    xml.open("GET","http://localhost:27580/createCart?uuid="+uuid);
+    xml.open("GET","http://10.0.2.15:27580/createCart?uuid="+uuid);
     xml.send();
 }
 
@@ -70,6 +70,6 @@ function resetOrder(){
             createCart();
         }
     }
-    xml.open("GET","http://localhost:27580/resetOrder?uuid="+uuid);
+    xml.open("GET","http://10.0.2.15:27580/resetOrder?uuid="+uuid);
     xml.send();
 }
