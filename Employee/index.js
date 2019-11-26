@@ -47,6 +47,6 @@ function onConfirm(){
             resetOrder();
         }
     }
-    xml.open("GET","http://10.0.2.15:27580/sendOrder?uuid="+uuid+"&table="+tableValue);
+    xml.open("GET","http://172.20.10.5:27580/sendOrder?uuid="+uuid+"&table="+tableValue);
     xml.send();
 }

@@ -10,7 +10,7 @@ function loadOrder() {
             genOrder(jsonData);
         }
     }
-    xml.open("GET", "http://10.0.2.15:27580/getOrderDetail?id=" + order_id);
+    xml.open("GET", "http://172.20.10.5:27580/getOrderDetail?id=" + order_id);
     xml.send();
 }
 
@@ -43,7 +43,7 @@ function confirmOrder() {
                 toHome();
             }
         }
-        xml.open("GET", "http://10.0.2.15:27580/confirmOrder?id=" + order_id);
+        xml.open("GET", "http://172.20.10.5:27580/confirmOrder?id=" + order_id);
         xml.send();
     }
 }

@@ -15,7 +15,7 @@ function loadOrder(){
             genOrder(jsonData);
         }
     }
-    xml.open("GET","http://10.0.2.15:27580/getOrderList");
+    xml.open("GET","http://172.20.10.5:27580/getOrderList");
     xml.send();
     }
     

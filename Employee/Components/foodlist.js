@@ -64,6 +64,6 @@ function addToCart(index){
             
         }
     }
-    xml.open("GET","http://10.0.2.15:27580/addToCart?name="+food_name+"&price="+food_price+"&type="+type+"&path="+food_path+"&uuid="+uuid);
+    xml.open("GET","http://172.20.10.5:27580/addToCart?name="+food_name+"&price="+food_price+"&type="+type+"&path="+food_path+"&uuid="+uuid);
     xml.send();
 }
