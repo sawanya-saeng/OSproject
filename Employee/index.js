@@ -26,7 +26,7 @@ function createCart(){
             console.log(this.responseText);
         }
     }
-    xml.open("GET","http://localhost:27580/createCart?uuid="+uuid);
+    xml.open("GET","http://172.20.10.5:27580/createCart?uuid="+uuid);
     xml.send();
 }
 
