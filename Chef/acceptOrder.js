@@ -12,7 +12,7 @@ function loadOrderAccept(){
             genOrderAccpet(jsonData);
         }
     }
-    xml.open("GET","http://localhost:27580/getAcceptList");
+    xml.open("GET","http://172.20.10.5:27580/getAcceptList");
     xml.send();
 }
 
