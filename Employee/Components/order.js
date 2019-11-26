@@ -6,8 +6,13 @@ function loadOrderList() {
     var xml = new XMLHttpRequest();
     xml.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            var Obj = JSON.parse(this.responseText);
-            geneOrderList(Obj);
+            if(this.responseText != ""){
+                var Obj = JSON.parse(this.responseText);
+                geneOrderList(Obj);
+            }else{
+                var target = document.getElementById("cartList");
+                target.innerHTML = "";
+            }
         }
     }
     xml.open("GET","http://localhost:27580/getCartList?uuid="+uuid);
@@ -43,4 +48,28 @@ function sendOrder(){
 
     targetBox.style.display = 'flex';
     targetBg.style.display = 'block';
+}
+
+function createCart(){
+    console.log("send");
+    var xml = new XMLHttpRequest();
+    xml.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+        }
+    }
+    xml.open("GET","http://localhost:27580/createCart?uuid="+uuid);
+    xml.send();
+}
+
+function resetOrder(){
+    var xml = new XMLHttpRequest();
+    xml.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            loadOrderList();
+            createCart();
+        }
+    }
+    xml.open("GET","http://localhost:27580/resetOrder?uuid="+uuid);
+    xml.send();
 }

@@ -16,6 +16,10 @@ app.get("/Employee", (req, res) => {
     res.sendFile('Employee/index.html', { root: __dirname });
 });
 
+app.get("/Chef",(req,res)=>{
+    res.sendFile('Chef/index.html', { root: __dirname });
+});
+
 app.get("/createCart", async (req, res) => {
     var array = [];
     await _db.collection('cart').doc(req.query.uuid).set({
@@ -74,6 +78,39 @@ app.get("/getCartList",async(req,res)=>{
     res.send(JSON.stringify(jsonData));
 });
 
+app.get("/getOrderList",async (req,res)=>{
+    var jsonData = [];
+    await _db.collection('orders').orderBy('date','asc').get().then((querySnapshot)=>{
+        querySnapshot.forEach((doc)=>{
+            var tmp = doc.data();
+            tmp['id'] = doc.id;
+            jsonData.push(tmp);
+        });
+        res.send(jsonData);
+    });
+});
+
+app.get("/getAcceptList",async (req,res)=>{
+    var jsonData = [];
+    await _db.collection('accept').get().then((querySnapshot)=>{
+        querySnapshot.forEach((doc)=>{
+            var tmp = doc.data();
+            tmp['id'] = doc.id;
+            jsonData.push(tmp);
+        });
+        res.send(jsonData);
+    });
+});
+
+app.get("/getOrderDetail",async(req, res)=>{
+    var jsonData;
+    await _db.collection('orders').doc(req.query.id).get().then((data)=>{
+        console.log(data.data());
+        jsonData = data.data();
+    });
+    res.send(JSON.stringify(jsonData))
+});
+
 app.get("/sendOrder",async(req,res)=>{
     var uuid = req.query.uuid;
     var table = req.query.table;
@@ -83,6 +120,7 @@ app.get("/sendOrder",async(req,res)=>{
         tmp = data.data();
     });
     tmp['table'] = table;
+    tmp['date'] = Date();
     await _db.collection('orders').add(tmp);
 
     res.send("Ok");
@@ -91,6 +129,25 @@ app.get("/sendOrder",async(req,res)=>{
 app.get("/resetOrder", async(req,res)=>{
     var uuid = req.query.uuid;
     await _db.collection('cart').doc(uuid).delete();
+    res.send("Ok");
+});
+
+app.get("/confirmOrder", async(req,res)=>{
+    var id = req.query.id;
+    var tmp;
+    await _db.collection('orders').doc(id).get().then((data)=>{
+        tmp = data.data();
+    });
+    await _db.collection('orders').doc(id).delete();
+    await _db.collection('accept').add(tmp);
+    tmp['date'] = Date();
+    await _db.collection('logs').add(tmp);
+    res.send("Ok");
+});
+
+app.get("/deleteAccept",async(req, res)=>{
+    var id = req.query.id;
+    await _db.collection('accept').doc(id).delete();
     res.send("Ok");
 });
 

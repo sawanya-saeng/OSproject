@@ -44,6 +44,7 @@ function onConfirm(){
     xml.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             console.log(this.responseText);
+            resetOrder();
         }
     }
     xml.open("GET","http://localhost:27580/sendOrder?uuid="+uuid+"&table="+tableValue);
